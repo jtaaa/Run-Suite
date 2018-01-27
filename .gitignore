@@ -1,0 +1,6 @@
+*.o
+*.d
+tests
+runsuite
+
+.vscode
