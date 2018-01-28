@@ -60,10 +60,11 @@ void printFile(const string fileName) {
 
 void runTest(const string &program, const string &stem, unordered_set<string> &options) {
     if (system_wrapper(program + " < " + stem + ".in > " + stem + ".act 2> " + stem + ".err") != 0) {
-        if (stem.substr(stem.length() - 5) != ".bad")
+        if (stem.substr(stem.length() - 4) != ".bad")
             std::cout << stem + " failed" << std::endl;
-    } else if (system_wrapper("[ -f " + stem + ".out ]") == 0 &&
-               system_wrapper("diff " + stem + ".act " + stem + ".out > " + stem + ".diff")) {
+    } else if (stem.substr(stem.length() - 4) == ".bad" ||
+                (system_wrapper("[ -f " + stem + ".out ]") == 0 &&
+                 system_wrapper("diff " + stem + ".act " + stem + ".out > " + stem + ".diff"))) {
         std::cout << stem + " failed" << std::endl;
     }
 
